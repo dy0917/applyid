@@ -10,7 +10,7 @@ export default function ({router}){
             },
             children:[
                 {
-                path: "/home",
+                path: "",
                 name: "home.index",
                 component:()=>import('./pages/home.vue')
                 }

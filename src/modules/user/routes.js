@@ -13,7 +13,12 @@ export default function ({router}){
                 path: "/users",
                 name: "users.index",
                 component:()=>import('./pages/users.vue')
-                }
+                },
+                {
+                    path: "/users/:id",
+                    name: "users.detail",
+                    component:()=>import('./pages/userDetail.vue')
+                    }
               ]
             } 
         

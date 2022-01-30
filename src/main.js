@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import services from './services'
+import service from './services'
 import App from './App.vue'
 import Router from 'vue-router'
 import router from './router'
@@ -10,14 +10,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 import loadComponents from './tools/loadComponents';
 import homeModule from './modules/home';
 import userModule from './modules/user';
-
+import Axios from './tools/axios'
 
 Vue.use(ElementUI);
 Vue.use(Vuex);
 Vue.use(Router);
 loadComponents();
 const store = new Vuex.Store(storage);
-store.services=services;
+const axios = new Axios();
+store.services=service(axios);
 Vue.use(homeModule, { store, router});
 Vue.use(userModule, { store, router});
 

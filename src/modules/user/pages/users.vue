@@ -1,27 +1,54 @@
 <template>
   <div>
     <el-table
-    :data="tableData"
+     :data="tableData"
+      :default-sort = "{prop: 'created_at', order: 'ascending'}"
     style="width: 100%;margin-bottom: 20px;"
     row-key="id"
     border>
       <el-table-column
-      prop="username"
-      label="Name"
-    
       width="180">
         <template slot="header">
-        <el-input
-          v-model="search"
-          size="mini"
-          placeholder="Type to search"/>
+          <el-row>
+             <el-col :span="8">
+            Name
+             </el-col>
+               <el-col :span="16">
+                 <div class='el-input el-input--mini'>
+                 <input
+                    v-model="search"
+                    size="mini"
+                    class="el-input__inner"
+                    placeholder="Search name"/>
+                 </div>
+             </el-col>
+          </el-row>
+      </template>
+      <template slot-scope="scope">
+        <router-link :to="{path: `users/${scope.row.id}`}"> {{scope.row.name}}</router-link>
       </template>
     </el-table-column>
-    <el-table-column
-      prop="date"
-      label="date"
+        <el-table-column
+      prop="followers"
+      label="Followers"
       sortable
       width="180">
+    </el-table-column>
+         <el-table-column
+      prop="public_repos"
+      label="Public repos"
+      sortable
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="created_at"
+      label="Created at"
+      sortable
+      width="180">
+        <template slot-scope="scope">
+          {{scope.row.created_at | moment}}
+       <!-- {{prop| moment}} -->
+      </template>
     </el-table-column>
   </el-table>
   </div>
@@ -30,123 +57,31 @@
 <script>
 import Vue from "vue";
 import {mapGetters} from "vuex";
+import moment from "moment";
 
 export default Vue.extend({
- 
   computed:{
     ...mapGetters("user",['getUsers']),
     tableData(){
-      return this.getUsers();
+      return this.getUsers().filter(data => !this.search || data.name.toLowerCase().includes(this.search.toLowerCase()));
     },
   },
-  async created(){
-    await this.$store.dispatch('user/getUsers');
-    await this.$store.dispatch('user/getUsers2');
+  
+  data(){
+    return {
+      search: ''
+    }
   },
 
-  methods: {
-    simulateLogin() {
-      return new Promise(resolve => {
-        setTimeout(resolve, 800);
-      });
-    },
-    async login() {
-      let valid = await this.$refs.form.validate();
-      if (!valid) {
-        return;
-      }
-      this.loading = true;
-      await this.simulateLogin();
-      this.loading = false;
-      if (
-        this.model.username === this.validCredentials.username &&
-        this.model.password === this.validCredentials.password
-      ) {
-        this.$message.success("Login successfull");
-      } else {
-        this.$message.error("Username or password is invalid");
-      }
+  async created(){
+     await this.$store.dispatch('user/searchUsersByName',{name: ''});
+  },
+
+  filters: {
+    moment: function (date) {
+       return moment(date).format('YYYY-MM-DD');
     }
   }
 }
 )
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<!--
-<style scoped>
-.login {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-button {
-  width: 100%;
-  margin-top: 40px;
-}
-.login-form {
-  width: 290px;
-}
-.forgot-password {
-  margin-top: 10px;
-}
-</style>
-<style lang="scss">
-$teal: rgb(0, 124, 137);
-.el-button--primary {
-  background: $teal;
-  border-color: $teal;
-
-  &:hover,
-  &.active,
-  &:focus {
-    background: lighten($teal, 7);
-    border-color: lighten($teal, 7);
-  }
-}
-.login .el-input__inner:hover {
-  border-color: $teal;
-}
-.login .el-input__prefix {
-  background: rgb(238, 237, 234);
-  left: 0;
-  height: calc(100% - 2px);
-  left: 1px;
-  top: 1px;
-  border-radius: 3px;
-  .el-input__icon {
-    width: 30px;
-  }
-}
-.login .el-input input {
-  padding-left: 35px;
-}
-.login .el-card {
-  padding-top: 0;
-  padding-bottom: 30px;
-}
-h2 {
-  font-family: "Open Sans";
-  letter-spacing: 1px;
-  font-family: Roboto, sans-serif;
-  padding-bottom: 20px;
-}
-a {
-  color: $teal;
-  text-decoration: none;
-  &:hover,
-  &:active,
-  &:focus {
-    color: lighten($teal, 7);
-  }
-}
-.login .el-card {
-  width: 340px;
-  display: flex;
-  justify-content: center;
-}
-</style>
-
--->

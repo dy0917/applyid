@@ -1,13 +1,11 @@
 import {mount, shallowMount } from '@vue/test-utils';
 import TestComponent from '../components/TestComponent.vue';
 
-describe('A', () => {
+describe('Test Test Compoent', () => {
     // Inspect the raw component options
     it('has data', () => {
       expect(typeof TestComponent.data).toBe('function')
     })
-
-    
   })
 
   describe('Mounted App', () => {
