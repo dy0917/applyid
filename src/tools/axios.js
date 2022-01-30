@@ -7,7 +7,16 @@ export default class Axios {
     withAuth(){
         const reqInstance = axios.create({
             headers: {
-                Authorization : `Bearer ${localStorage.getItem("access_token")}`
+                Authorization : `token ${process.env.VUE_APP_GIT_TOKEN}`
+            }
+          });
+        return reqInstance;
+    }
+
+    withBasicAuth(){
+        const reqInstance = axios.create({
+            headers: {
+                Authorization : `Basic ${process.env.VUE_APP_GIT_TOKEN}`
             }
           });
         return reqInstance;

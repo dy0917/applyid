@@ -10,7 +10,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import loadComponents from './tools/loadComponents';
 import homeModule from './modules/home';
 import userModule from './modules/user';
-import Axios from './tools/axios'
+import Axios from './tools/axios';
+import { Octokit } from "octokit";
 
 Vue.use(ElementUI);
 Vue.use(Vuex);
@@ -18,7 +19,8 @@ Vue.use(Router);
 loadComponents();
 const store = new Vuex.Store(storage);
 const axios = new Axios();
-store.services=service(axios);
+const octokit= new Octokit({ auth: process.env.VUE_APP_GIT_TOKEN});
+store.services=service(axios, octokit);
 Vue.use(homeModule, { store, router});
 Vue.use(userModule, { store, router});
 
