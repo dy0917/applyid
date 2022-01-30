@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --mode=production",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "jest"
+    "test": "jest",
+    "runProd": "serve -s dist"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",
