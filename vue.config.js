@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: "/applyid/"
+    publicPath: process.env.NODE_ENV==="production"? "/https://dy0917.github.io/applyid/": ""
   }
