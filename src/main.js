@@ -20,13 +20,13 @@ loadComponents();
 const store = new Vuex.Store(storage);
 const axios = new Axios();
 console.log('process',process.env);
-const octokit= new Octokit({ auth: "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"});
+const octokit= new Octokit({ auth: process.env.VUE_APP_GIT_TOKEN});
 store.services=service(axios, octokit);
 Vue.use(homeModule, { store, router});
 Vue.use(userModule, { store, router});
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 new Vue({
   router,
   store,
