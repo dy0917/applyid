@@ -7,7 +7,7 @@ export default class Axios {
     withAuth(){
         const reqInstance = axios.create({
             headers: {
-                Authorization : `token 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`
+                Authorization : `token ${process.env.VUE_APP_GIT_TOKEN}`
             }
           });
         return reqInstance;
