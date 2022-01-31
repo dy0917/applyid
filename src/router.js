@@ -1,7 +1,7 @@
 import Router from 'vue-router'
 
 const router =new Router ({
-  // mode: 'history',
+  mode: 'history',
   base: process.env.NODE_ENV=='production'? '/applyid/': '/',
   routes:[{
       path : "",
