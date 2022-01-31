@@ -20,7 +20,7 @@ loadComponents();
 const store = new Vuex.Store(storage);
 const axios = new Axios();
 console.log(process.env);
-const octokit= new Octokit({ auth: process.env.VUE_APP_GIT_TOKEN});
+const octokit= new Octokit({ auth: `ghp_${process.env.VUE_APP_GIT_TOKEN}`});
 store.services=service(axios, octokit);
 Vue.use(homeModule, { store, router});
 Vue.use(userModule, { store, router});

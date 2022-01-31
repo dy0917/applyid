@@ -7,7 +7,7 @@ export default class Axios {
     withAuth(){
         const reqInstance = axios.create({
             headers: {
-                Authorization : `token ${process.env.VUE_APP_GIT_TOKEN}`
+                Authorization : `token ghp_${process.env.VUE_APP_GIT_TOKEN}`
             }
           });
         return reqInstance;
@@ -16,7 +16,7 @@ export default class Axios {
     withBasicAuth(){
         const reqInstance = axios.create({
             headers: {
-                Authorization : `Basic ${process.env.VUE_APP_GIT_TOKEN}`
+                Authorization : `Basic ghp_${process.env.VUE_APP_GIT_TOKEN}`
             }
           });
         return reqInstance;
