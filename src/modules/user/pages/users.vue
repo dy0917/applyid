@@ -63,7 +63,13 @@ export default Vue.extend({
   computed:{
     ...mapGetters("user",['getUsers']),
     tableData(){
-      return this.getUsers().filter(data => !this.search || data.name.toLowerCase().includes(this.search.toLowerCase()));
+      return this.getUsers().filter(data => {
+        if(!this.search&&data.name){
+          return data.name.toLowerCase();
+        }else{
+          return data.name.toLowerCase().includes(this.search.toLowerCase())
+        }
+      });
     },
   },
   
